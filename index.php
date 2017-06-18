@@ -536,6 +536,10 @@
 							var date = $(this).text();
 
 							$(this).text($.getCustomDate(date, "D d M, yy"));
+							if(date.startsWith("1234")){
+								$(this).text("Comanda acumulativa");
+								$(this).parent('tr').find('td:last-child').text("");
+							}
 
 						})
 					}
