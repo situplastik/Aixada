@@ -10,7 +10,7 @@
   	<link rel="stylesheet" type="text/css"   media="screen" href="js/aixadacart/aixadacart.css?v=<?=aixada_js_version();?>" />
   	<link rel="stylesheet" type="text/css"   media="screen" href="js/fgmenu/fg.menu.css"   />
     <link rel="stylesheet" type="text/css"   media="screen" href="css/ui-themes/<?=$default_theme;?>/jqueryui.css"/>
-     
+
 	<style>
 		.ui-state-disabled a {pointer-events: none;}
 		table.tblListingDefault td.MyOrderItem {vertical-align: top;}
@@ -20,35 +20,35 @@
 		    border:dotted #777 1px;
 		}
 	</style>
-    
+
     <script type="text/javascript" src="js/jquery/jquery.js"></script>
     <script type="text/javascript" src="js/jqueryui/jqueryui.js"></script>
     <?php echo aixada_js_src(); ?>
     <script type="text/javascript" src="js/aixadacart/jquery.aixadacart.js?v=<?=aixada_js_version();?>" ></script>
     <script type="text/javascript" src="js/aixadacart/i18n/cart.locale-<?=$language;?>.js?v=<?=aixada_js_version();?>" ></script>
-     
-   	<script type="text/javascript" src="js/jqueryui/i18n/jquery.ui.datepicker-<?=$language;?>.js" ></script> 
-	   
+
+   	<script type="text/javascript" src="js/jqueryui/i18n/jquery.ui.datepicker-<?=$language;?>.js" ></script>
+
 	<script type="text/javascript">
 	$(function(){
 		$.ajaxSetup({ cache: false });
 
 			//loading animation
-			$('.loadSpinner').attr('src', "img/ajax-loader-<?=$default_theme;?>.gif").hide(); 
-				
-			
+			$('.loadSpinner').attr('src', "img/ajax-loader-<?=$default_theme;?>.gif").hide();
+
+
 			//sql result set limit for order
-			var gOrderLimit = 10; 
+			var gOrderLimit = 10;
 
 			//index
-			var gOrderLimitIndex = 0; 
+			var gOrderLimitIndex = 0;
 
 
 			//sql result set limti for purchase
-			var gShopLimit = 10; 
+			var gShopLimit = 10;
 
 
-			var gShopLimitIndex = 0; 
+			var gShopLimitIndex = 0;
 
 			$('#loadingMsg').hide();
 
@@ -58,7 +58,7 @@
 						$('#tbl_Shop tbody').xml2html('reload'); //load purchase list when switching tabs
 					}
 				}
-	
+
 			});
 
 			$('#tmp').hide();
@@ -70,10 +70,10 @@
 				$.ajax({
 					type: "POST",
 					url: "php/ctrl/SmallQ.php?oper=configMenu&user_role="+role,
-					dataType: "xml", 
+					dataType: "xml",
 					success: function(xml){
 						$(xml).find('navigation').children().each( function(){
-							var tag = $(this)[0].tagName; 
+							var tag = $(this)[0].tagName;
 							var val = $(this).text();
 							if (val == 'disable') {
 								$('.index_'+tag).addClass('ui-state-disabled');
@@ -84,13 +84,13 @@
 					}
 				});
 			}
-	
+
 
 			/********************************************************
 			 *      My ORDERS
 			 ********************************************************/
 
-			//show older orders dates			
+			//show older orders dates
 				$('#btn_prevOrders').button({
 					icons : {
 						primary:"ui-icon-seek-prev"
@@ -120,65 +120,65 @@
 					});
 
 				});
-			 
-			 
+
+
 			var lastDate = '';
 
 			//load the current orders by provider. introduces a date row when date changes
 			$('#tbl_Orders tbody').xml2html('init',{
 				url : 'php/ctrl/Orders.php',
 				params : 'oper=getOrdersListingForUf&uf_id=-1&filter=pastMonths2Future',
-				loadOnInit : true, 
+				loadOnInit : true,
 				beforeLoad : function(){
 					$('.loadSpinner').show();
 				},
 				rowComplete : function(rowIndex, row){
 					var orderId = $(row).attr('orderId');
 					var timeLeft = $(row).children().eq(2).text();
-					
+
 					var revisionStatus = $(row).attr('revisionStatus');
-					
+
 					if (orderId > 0){ //order has been sent
 						var st = formatOrderStatus(revisionStatus);
 						$(row).children().eq(3).addClass(st[1]).html('<p class="textAlignCenter">'+st[0]+'</p>');
-								
+
 					} else {
-						 $(row).children().eq(3).html("<p class='textAlignCenter'><?=$Text["not_yet_sent"];?></p>");		
-					} 
+						 $(row).children().eq(3).html("<p class='textAlignCenter'><?=$Text["not_yet_sent"];?></p>");
+					}
 
 					if (timeLeft < 0){
 						$(row).children().eq(2).html('<span class="ui-icon ui-icon-locked tdIconCenter" title="order is closed"></span>');
 					}
 
-					
+
 					//create date heading row
 					var date = $(row).attr('dateForOrder');
 					if (date != lastDate) $(row).before('<tr><td colspan="6">&nbsp;</td></tr><tr><td colspan="5"><p class="overviewDateRow"><?=$Text['ordered_for'];?> <span class="boldStuff">'+$.getCustomDate(date, "D d M, yy")+'</span></p></td><td><p class="ui-corner-all iconContainer ui-state-default printOrderIcon" dateForOrder="'+date+'"><span class="ui-icon ui-icon-print" title="Print order"></span></p></td></tr>');
-					lastDate=date; 	
+					lastDate=date;
 
 				},
 				complete : function(rowCount){
 					if (rowCount == 0){
 						$.showMsg({
 							msg:"<?php echo $Text['msg_err_noorder']; ?>",
-							type: 'warning'});	
+							type: 'warning'});
 					}
 					$('.loadSpinner').hide();
-					
+
 				}
 			});
 
 
 
 			/**
-			 * load and show the order-shop comparison 
+			 * load and show the order-shop comparison
 			 */
 			function loadOrderDetails(orderId, dateForOrder, providerId){
 
 				$('#tbl_diffOrderShop').attr('currentOrderId','');
 				$('#tbl_diffOrderShop').attr('currentDateForOrder','');
 				$('#tbl_diffOrderShop').attr('currentProviderId','');
-				
+
                 var rowOrderComplete = function (rowIndex, row){
                     var orderable_type_id = $(row).attr("orderable_type_id");
                     if (orderable_type_id == 3) {
@@ -189,7 +189,7 @@
                             ).replace(/\r/g, '<br>'
                             ).replace(/\n/g, '<br>');
                         $('.has_notes div', row).html(html);
-                        
+
                         $('.has_notes', row).show();
                         $('.no_notes', row).hide();
                     } else {
@@ -197,13 +197,13 @@
                         $('.no_notes', row).show();
                     }
                 };
-								
+
 				if (orderId > 0) {
 					$('#tbl_diffOrderShop').attr('currentOrderId',orderId);
 					$('#tbl_diffOrderShop tbody').xml2html('reload', {
 						params : 'oper=getDiffOrderShop&order_id='+orderId,
 						rowComplete: rowOrderComplete
-					});	
+					});
 
 				} else if (providerId > 0){
 					$('#tbl_diffOrderShop').attr('currentDateForOrder',dateForOrder);
@@ -211,19 +211,19 @@
 					$('#tbl_diffOrderShop tbody').xml2html('reload', {
 						params : 'oper=getProductQuantiesForUfs&uf_id=-1&provider_id='+providerId + '&date_for_order='+dateForOrder,
 						rowComplete: rowOrderComplete
-					});	
-					
-				} 
+					});
+
+				}
 			} //end loadOrderDetails
 
 
 
-			
+
 			//tmp table to load the order - shop comparison
 			$('#tbl_diffOrderShop tbody').xml2html('init',{
 				url : 'php/ctrl/Orders.php',
-				params : 'oper=getDiffOrderShop', 
-				loadOnInit : false, 
+				params : 'oper=getDiffOrderShop',
+				loadOnInit : false,
 				beforeLoad : function (){
 					$('.loadSpinner').show();
 				},
@@ -234,12 +234,12 @@
 				complete : function(rowCount){
 					$('.loadSpinner').hide();
 					if (rowCount >0){
-						
+
 						var orderId = $('#tbl_diffOrderShop').attr('currentOrderId');
 						var dateForOrder = $('#tbl_diffOrderShop').attr('currentDateForOrder');
 						var providerId = $('#tbl_diffOrderShop').attr('currentProviderId');
 
-						var selector = (orderId > 0)? '.detail_'+orderId:'.detail_date_'+dateForOrder+'.detail_provider_'+providerId; 
+						var selector = (orderId > 0)? '.detail_'+orderId:'.detail_date_'+dateForOrder+'.detail_provider_'+providerId;
 						//alert(selector);
 						var header = $('#tbl_diffOrderShop thead tr').clone();
 						var itemRows = $('#tbl_diffOrderShop tbody tr').clone();
@@ -248,16 +248,16 @@
 							//var revision = $('#order_'+orderId).attr('revisionStatus');
 							$('#order_'+orderId).after(itemRows).after(header);
 							$(selector).show().prev().show();
-					
-							//$('#order_'+orderId).children().eq(3).addClass(modClass).html('<p class="textAlignCenter">'+modTxt+'</p>');		
+
+							//$('#order_'+orderId).children().eq(3).addClass(modClass).html('<p class="textAlignCenter">'+modTxt+'</p>');
 
 						} else if (providerId > 0){  //not yet send / closed order
 							$('.Date_'+dateForOrder+'.Provider_'+providerId).after(itemRows).after(header);
 							$(selector).show().prev().show();
-						
+
 						}
-	
-					} 
+
+					}
 				}
 			});
 
@@ -267,70 +267,70 @@
 			 */
 			function formatOrderStatus(intStatus){
 				var modClass = '';
-				var modTxt = ''; 
+				var modTxt = '';
 
 				switch (intStatus){
 					case "1":
 						modTxt = "<?=$Text['ostat_yet_received']; ?>";
 						break;
-					case "2": 
+					case "2":
 						modClass = "asOrdered";
-						modTxt = "<?=$Text['ostat_is_complete']; ?>"; 
+						modTxt = "<?=$Text['ostat_is_complete']; ?>";
 						break;
-					case "3": 
+					case "3":
 						modClass = 'postponed'
 						modTxt = "<?=$Text['ostat_postponed'];?>";
 						break;
-					case "4": 
+					case "4":
 						modClass="orderCanceled";
 						modTxt = "<?=$Text['ostat_canceled'];?>";
 						break;
-					case "5": 
+					case "5":
 						modClass = "withChanges";
 						modTxt = "<?=$Text['ostat_changes']; ?>";
-						break;	
+						break;
 				}
 
 				//$(row).children().eq(3).html("<p class='textAlignCenter'><?=$Text["expected"];?></p>");
-				
+
 				return [modTxt, modClass];
 			}
-			
+
 
 			/**
 			 *	expand order details
 			 */
 			$('.expandOrderIcon').live('click', function(){
 
-				var curTr = $(this).parents('tr'); 
-				
+				var curTr = $(this).parents('tr');
+
 				var orderId = curTr.attr('orderId');
 				var dateForOrder =  curTr.attr('dateForOrder');
 				var providerId =  curTr.attr('providerId');
 
-				var selector = (orderId > 0)? '.detail_'+orderId:'.detail_date_'+dateForOrder+'.detail_provider_'+providerId; 
-				var isLoaded = ($(selector).length > 0)? true:false; 
+				var selector = (orderId > 0)? '.detail_'+orderId:'.detail_date_'+dateForOrder+'.detail_provider_'+providerId;
+				var isLoaded = ($(selector).length > 0)? true:false;
 
-							
+
 					if ($('span',this).hasClass('ui-icon-plus')){
 						if (!isLoaded){
 							loadOrderDetails(orderId, dateForOrder, providerId);
 						} else {
-							$(selector).show().prev().show();							
+							$(selector).show().prev().show();
 						}
 						$('span',this).removeClass('ui-icon-plus').addClass('ui-icon-minus');
 						curTr.children().addClass('ui-state-highlight ui-corner-all');
-						
+
 					} else {
 						$('span',this).removeClass('ui-icon-minus').addClass('ui-icon-plus');
 						$(selector).hide().prev().hide();
 						curTr.children().removeClass('ui-state-highlight');
-						
-					} 
-				
+
+					}
+
 			})
-			
-			
+
+
 			/**
 			 *	print stuff
 			 */
@@ -338,27 +338,27 @@
 			$('.printOrderIcon').live('click', function(){
 
 				var dateForOrder = $(this).attr('dateForOrder');
-				
+
 				printWin = window.open('tpl/<?=$tpl_print_myorders;?>?date='+dateForOrder);
 				printWin.focus();
 			});
 
-			
+
 			//calculates index for sql result set
 			function getOrderLimit(index)
 			{
-				
+
 				if (index == 0) {
-					$('#btn_nextOrders').button('disable');  
+					$('#btn_nextOrders').button('disable');
 				} else {
-					$('#btn_nextOrders').button('enable');  
-				}	
+					$('#btn_nextOrders').button('enable');
+				}
 				return index*gOrderLimit+","+(gOrderLimit);
 			}
 
 
-			
-			
+
+
 			/********************************************************
 			 *      My PURCHASE
 			 ********************************************************/
@@ -372,7 +372,7 @@
 					}
 			})
 			.click( function(e){
-					gShopLimitIndex++;	
+					gShopLimitIndex++;
 					$('#tbl_Shop tbody').xml2html('reload',{
 						url : 'php/ctrl/Shop.php',
 						params : 'oper=getShopListing&uf_id=-1&filter=all&limit='+getShopLimit(gShopLimitIndex)
@@ -388,7 +388,7 @@
 					}
 			})
 			.click( function(e){
-				gShopLimitIndex--;	
+				gShopLimitIndex--;
 				$('#tbl_Shop tbody').xml2html('reload',{
 					url : 'php/ctrl/Shop.php',
 					params : 'oper=getShopListing&uf_id=-1&filter=all&limit='+getShopLimit(gShopLimitIndex)
@@ -396,15 +396,15 @@
 				});
 
 			});
-			
-			
-			
-			
+
+
+
+
 			//load purchase listing
 			$('#tbl_Shop tbody').xml2html('init',{
 					url : 'php/ctrl/Shop.php',
 					params : 'oper=getShopListing&uf_id=-1&filter=all&limit='+getShopLimit(0),
-					loadOnInit : false, 
+					loadOnInit : false,
 					beforeLoad : function(){
 						$('.loadSpinner').show();
 					},
@@ -412,7 +412,7 @@
 						var validated = $(row).children().eq(2).text();
 
 						if (validated == '0000-00-00 00:00:00'){
-							$(row).children().eq(2).html("-");	
+							$(row).children().eq(2).html("-");
 						} else {
 							$(row).children().eq(2)
 								.addClass('okGreen')
@@ -424,7 +424,7 @@
 						$('#tbl_Shop tbody td.shopDate').each(function(){
 							var date = $(this).text();
 
-							$(this).text($.getCustomDate(date, "D d M, yy")); 
+							$(this).text($.getCustomDate(date, "D d M, yy"));
 
 						})
 					}
@@ -433,8 +433,8 @@
 			//load purchase detail (products and quantities)
 			$('#tbl_purchaseDetail tbody').xml2html('init',{
 				url : 'php/ctrl/Shop.php',
-				params : 'oper=getShopCart', 
-				loadOnInit : false, 
+				params : 'oper=getShopCart',
+				loadOnInit : false,
 				beforeLoad : function(){
 					$('.loadSpinner').show();
 				},
@@ -444,7 +444,7 @@
 					var totalPrice = price * qu;
 					totalPrice = totalPrice.toFixed(2);
 					$(row).children().eq(5).text(totalPrice);
-					
+
 				},
 				complete : function(rowCount){
 
@@ -457,7 +457,7 @@
 
 				}
 			});
-			
+
 
 			$('.expandShopIcon').live('click', function(){
 
@@ -466,9 +466,9 @@
 
 				$('#tbl_purchaseDetail').attr('currentShopId', shopId);
 				$('#tbl_purchaseDetail').attr('currentDateForShop', dateForShop);
-				
-				
-							
+
+
+
 				if ($('span',this).hasClass('ui-icon-plus')){
 					$('span',this).removeClass('ui-icon-plus').addClass('ui-icon-minus');
 					$(this).parents('tr').children().addClass('ui-state-highlight ui-corner-all');
@@ -477,7 +477,7 @@
 						params : 'oper=getShopCart&shop_id='+shopId
 					});
 
-					
+
 				} else {
 					$('span',this).removeClass('ui-icon-minus').addClass('ui-icon-plus');
 					$(this).parents('tr').children().removeClass('ui-state-highlight');
@@ -485,7 +485,7 @@
 					$('.detail_shop_'+shopId).hide();
 				}
 			})
-			
+
 			//print purchase / order
 			$('.printShopIcon').live('click', function(){
 
@@ -493,14 +493,14 @@
 				var date = $(this).parents('tr').prev().attr('dateForShop');
 				var op_name = $(this).parents('tr').prev().attr('operatorName');
 				var op_uf = $(this).parents('tr').prev().attr('operatorUf');
-				
 
-				
+
+
 				printWin = window.open('tpl/<?=$tpl_print_bill;?>?shopId='+shopId+'&date='+date+'&operatorName='+op_name+'&operatorUf='+op_uf);
 				printWin.focus();
 			});
 
-			
+
 			$('.iconContainer')
 			.live('mouseover', function(e){
 				$(this).addClass('ui-state-hover');
@@ -514,10 +514,10 @@
 			function getShopLimit(index)
 			{
 				if (index == 0) {
-					$('#btn_nextPurchase').button('disable');  
+					$('#btn_nextPurchase').button('disable');
 				} else {
-					$('#btn_nextPurchase').button('enable');  
-				}	
+					$('#btn_nextPurchase').button('enable');
+				}
 				return index*gShopLimit+","+(gShopLimit);
 			}
 
@@ -527,20 +527,20 @@
 			 */
 			 $('#tbl_UpcomingOrders tbody').xml2html('init',{
 					url : 'php/ctrl/Dates.php',
-					params : 'oper=getUpcomingOrders&range=3',  //time range counts in weeks. Here three weeks ahead. 
-					loadOnInit : true, 
+					params : 'oper=getUpcomingOrders&range=3',  //time range counts in weeks. Here three weeks ahead.
+					loadOnInit : true,
 					complete : function(count){
 						$('#tbl_UpcomingOrders tbody tr:even').addClass('rowHighlight');
 
 						$('#tbl_UpcomingOrders tbody td.dateForOrder').each(function(){
 							var date = $(this).text();
 
-							$(this).text($.getCustomDate(date, "D d M, yy")); 
+							$(this).text($.getCustomDate(date, "D d M, yy"));
 
-						})	
+						})
 					}
 			 });
-			
+
 	});  //close document ready
 </script>
 
@@ -553,7 +553,7 @@
 	</div>
 	<!-- end of headwrap -->
 	<div id="stagewrap" class="ui-widget">
-	
+
 		<div id="homeWrap">
 			<div class="aix-layout-fixW150 floatLeft">
 				<?php if ($cfg_use_shop) {  // USE SHOP: start  ?>
@@ -575,9 +575,9 @@
 
 				<ul>
 					<li><a href="#tabs-1"><h2><?=$Text['my_orders'];?></h2></a></li>
-					<li><a href="#tabs-2"><h2><?=$Text['my_purchases'];?></h2></a></li>	
-					<li><a href="#tabs-3"><h2><?=$Text['upcoming_orders'];?></h2></a></li>	
-					
+					<li><a href="#tabs-2"><h2><?=$Text['my_purchases'];?></h2></a></li>
+					<li><a href="#tabs-3"><h2><?=$Text['upcoming_orders'];?></h2></a></li>
+
 				</ul>
 				<span style="float:right; margin-top:-45px; margin-right:12px;"><img class="loadSpinner" src="img/ajax-loader.gif"/></span>
 				<div id="tabs-1">
@@ -589,7 +589,7 @@
 								<td>{time_left}</td>
 								<td><?=$Text['loading_status_info'];?></td>
 								<td><p class="textAlignRight">{order_total}<?=$Text['currency_sign'];?></p></td>
-								
+
 							</tr>
 						</tbody>
 						<tfoot>
@@ -602,14 +602,14 @@
 										<button id="btn_prevOrders"><?=$Text['previous'];?></button>&nbsp;&nbsp;&nbsp;&nbsp;
 										<button id="btn_nextOrders"><?=$Text['next'];?></button></p>
 									</td>
-								
-								
+
+
 							</tr>
-						
+
 						</tfoot>
 					</table>
 				</div>
-				
+
 				<div id="tabs-2">
 					<table id="tbl_Shop" class="table_overviewShop">
 						<thead>
@@ -638,13 +638,13 @@
 										<button id="btn_prevPurchase"><?=$Text['previous'];?></button>&nbsp;&nbsp;&nbsp;&nbsp;
 										<button id="btn_nextPurchase"><?=$Text['next'];?></button></p>
 									</td>
-								
-								
+
+
 							</tr>
 						</tfoot>
 					</table>
 				</div>
-				
+
 				<div id="tabs-3">
 					<table id="tbl_UpcomingOrders" class="tblListingDefault">
 						<thead>
@@ -661,16 +661,16 @@
 								<td>{time_left}</td>
 							</tr>
 						</tbody>
-						
+
 					</table>
 				</div>
-				
-				
-			</div>	
-					
+
+
+			</div>
+
 		</div>
 	</div>
-	
+
 	<!-- end of stage wrap -->
 </div>
 
@@ -682,7 +682,7 @@
 			<td class="tdMyOrder" colspan="2"><?=$Text['product_name'];?></td>
 			<td class="tdMyOrder"><?=$Text['ordered'];?></td>
 			<td class="tdMyOrder"><?=$Text['delivered'];?></td>
-			<!-- td class="tdMyOrder"><?=$Text['price'];?></td-->		
+			<!-- td class="tdMyOrder"><?=$Text['price'];?></td-->
 		</tr>
 	</thead>
 	<tbody>
@@ -702,14 +702,14 @@
 	<thead>
 		<tr>
 			<td><p class="ui-corner-all iconContainer ui-state-default printShopIcon"><span class="ui-icon ui-icon-print" title="Print bill"></span></p></td>
-			<th><?php echo $Text['name_item'];?></th>	
-			<th><?php echo $Text['provider_name'];?></th>					
+			<th><?php echo $Text['name_item'];?></th>
+			<th><?php echo $Text['provider_name'];?></th>
 			<th class="textAlignCenter"><?=$Text['qu']?></th>
 			<th><?php echo $Text['unit'];?></th>
 			<th class="textAlignRight"><?=$Text['price'];?></th>
-			
-			
-			
+
+
+
 		</tr>
 	</thead>
 	<tbody>
@@ -719,19 +719,19 @@
 			<td class="MyShopItem">{provider_name}</td>
 			<td class="MyShopItem textAlignCenter">{quantity}</td>
 			<td class="MyShopItem">{unit}</td>
-			<td class="MyShopItem textAlignRight">{unit_price}</td>	
-			
-		</tr>						
+			<td class="MyShopItem textAlignRight">{unit_price}</td>
+
+		</tr>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td>&nbsp;</td>
-			<td colspan="5">			
+			<td colspan="5">
 		</tr>
 	</tfoot>
 </table>
 
-				
+
 </div>
 
 
