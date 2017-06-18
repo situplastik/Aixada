@@ -1,7 +1,7 @@
-<?php 
+<?php
 if (!defined('__ROOT__')) {
     define('DS', DIRECTORY_SEPARATOR);
-    define('__ROOT__', dirname(dirname(dirname(__FILE__))).DS); 
+    define('__ROOT__', dirname(dirname(dirname(__FILE__))).DS);
 }
 
 require_once("header.inc.version.php"); // To obtain: $aixada_vesion_lastDate
@@ -11,7 +11,7 @@ require_once(__ROOT__ . 'local_config'.DS.'config.php');
 require_once(__ROOT__ . 'php'.DS.'utilities'.DS.'general.php');
 
 //$dev = configuration_vars::get_instance()->development;
-$language = get_session_language(); 
+$language = get_session_language();
 $default_theme = get_session_theme();
 
 require_once(__ROOT__ . 'local_config'.DS.'lang'.DS. get_session_language() . '.php');
@@ -24,6 +24,7 @@ function aixada_js_version() {
 function aixada_js_src($useMenus = true) {
     global $aixada_vesion_lastDate;
     $src = "<!-- aixada_js_src -->";
+    $src .= "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"css/own.css?v={$aixada_vesion_lastDate}\">";
     if ($useMenus) {
         $src .= "
             <script src=\"js/fgmenu/fg.menu.js?v={$aixada_vesion_lastDate}\"></script>
