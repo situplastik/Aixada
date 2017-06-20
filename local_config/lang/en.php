@@ -2,7 +2,7 @@
 
 require_once(__ROOT__. 'local_config/config.php');
 
-// English translation file for aixada 
+// English translation file for aixada
 
 $Text['en'] = 'English';
 
@@ -11,12 +11,12 @@ $Text['charset'] = "utf-8";
 $Text['text_dir'] = "ltr"; // ('ltr' for left to right, 'rtl' for right to left)
 
 
-/** 
+/**
  *  		Global things
  */
 $Text['coop_name'] = configuration_vars::get_instance()->coop_name;
 $Text['currency_sign'] = configuration_vars::get_instance()->currency_sign;
-$Text['currency_desc'] = "Euros"; 
+$Text['currency_desc'] = "Euros";
 $Text['please_select'] = "Please select ...";
 $Text['loading'] = "Please wait while loading...";
 $Text['search'] = "Search";
@@ -26,7 +26,7 @@ $Text['uf_long'] = "Household";
 
 
 
-/** 
+/**
  *  		misc
  */
 $Text['date_from'] = 'from';
@@ -77,8 +77,8 @@ $Text['head_ti_manage'] = "Manage";
 $Text['head_ti_manage_uf'] = "Households/Members";
 $Text['head_ti_incidents'] = "Incidents";
 $Text['head_ti_stats'] = "Statistics of the Day";
-$Text['head_ti_prev_orders'] = "My previous purchases"; 
-$Text['head_ti_cashbox'] = "Money control"; 
+$Text['head_ti_prev_orders'] = "My previous purchases";
+$Text['head_ti_cashbox'] = "Money control";
 
 
 
@@ -92,13 +92,13 @@ $Text['ti_mng_activate_roles'] = "Manage roles of user ";
 $Text['ti_mng_activate_users'] = "Activate users for ";
 $Text['ti_mng_activate_preorders'] = "Convert preorder to order";
 $Text['ti_mng_members'] = "Manage member";
-$Text['ti_mng_db'] = "Backup database"; 
+$Text['ti_mng_db'] = "Backup database";
 $Text['ti_order'] = "Place your order for ";
 $Text['ti_shop'] = "Buy stuff ";
-//$Text['ti_report_report'] = "Summary of orders for "; 
-$Text['ti_report_account'] = "Report accounts "; 
-//$Text['ti_report_my_account'] = "Report my account "; 
-$Text['ti_report_preorder'] = "Summary of preorders"; 
+//$Text['ti_report_report'] = "Summary of orders for ";
+$Text['ti_report_account'] = "Report accounts ";
+//$Text['ti_report_my_account'] = "Report my account ";
+$Text['ti_report_preorder'] = "Summary of preorders";
 $Text['ti_report_incidents'] = "Today's incidents";
 $Text['ti_incidents'] = "Incidents";
 $Text['ti_validate'] = "Validate cart for HU";
@@ -189,8 +189,8 @@ $Text['adult'] = "Adult";
 /**
  *  			wiz stuff
  */
-$Text['deposit_cashbox'] = 'Deposit money in cashbox'; 
-$Text['widthdraw_cashbox'] = 'Withdraw money from cashbox'; 
+$Text['deposit_cashbox'] = 'Deposit money in cashbox';
+$Text['widthdraw_cashbox'] = 'Withdraw money from cashbox';
 $Text['current_balance'] = 'Current balance';
 $Text['deposit_type'] = 'Type of deposit';
 $Text['deposit_by_uf'] = 'Deposit by HU';
@@ -305,7 +305,7 @@ $Text['ts_validated'] = 'Validated';
 
 /**
  * 		Logon Screen
- */ 
+ */
 $Text['welcome_logon'] = "Welcome to " . configuration_vars::get_instance()->coop_name . "!";
 $Text['logon'] = "User";
 $Text['pwd']	= "Password";
@@ -368,7 +368,7 @@ $Text['nav_incidents'] = "Incidents";
 $Text['nav_myaccount'] = "My Account";
 	$Text['nav_myaccount_settings'] = "Settings";
 	$Text['nav_myaccount_account'] = "My money";
-	$Text['nav_changepwd'] = "Change password"; 
+	$Text['nav_changepwd'] = "Change password";
 	$Text['nav_prev_orders'] = "Previous purchases";
 
 $Text['nav_logout'] = "Sign out";
@@ -398,16 +398,16 @@ $Text['btn_create'] = "Create";
 $Text['btn_close'] = "Close";
 $Text['btn_make_deposit'] = "Deposit!";
 $Text['btn_new_incident'] = "New Incident";
-$Text['btn_reset_pwd'] = "Reset Password"; 
-$Text['btn_view_cart'] = "Cart"; 
+$Text['btn_reset_pwd'] = "Reset Password";
+$Text['btn_view_cart'] = "Cart";
 $Text['btn_view_cart_lng'] = "View cart only";
 $Text['btn_view_list'] = "Products";
 $Text['btn_view_list_lng'] = "View product list only";
 $Text['btn_view_both'] = "Both";
 $Text['btn_view_both_lng'] = "View both, product list and cart";
 $Text['btn_repeat'] = "Ok, repeat this!";
-$Text['btn_repeat_single'] = "No, just one"; 
-$Text['btn_repeat_all'] = "Ok, apply to all"; 
+$Text['btn_repeat_single'] = "No, just one";
+$Text['btn_repeat_all'] = "Ok, apply to all";
 
 
 
@@ -457,18 +457,18 @@ $Text['msg_err_pwdctrl'] = "The passwords did not match. Please retype both!";
 $Text['msg_err_usershort'] = "The username is too short. Should have min. of three characters";
 $Text['msg_err_userexists'] = "The username already exists. Please choose another one.";
 $Text['msg_err_passshort'] = "The password is too short. Should be between 4 and 15 characters long.";
-$Text['msg_err_notempty'] = " field cannot be left empty!"; 
-$Text['msg_err_namelength'] = "The name and family name cannot be left empty or contain more than 255 characters!"; 
-$Text['msg_err_only_num'] = " field only allows numbers and cannot be empty!"; 
+$Text['msg_err_notempty'] = " field cannot be left empty!";
+$Text['msg_err_namelength'] = "The name and family name cannot be left empty or contain more than 255 characters!";
+$Text['msg_err_only_num'] = " field only allows numbers and cannot be empty!";
 $Text['msg_err_email'] = "The email format is not correct. Should be name@domain.com or similar.";
 //$Text['msg_err_select_uf'] = "In order to assign a new member to an HU you have to select an HU first by clicking on its name! If you need a new HU, create one first by clicking +New HU.";
-//$Text['msg_err_select_non_member'] = "In order to assign a new member to an HU you have to select one from the non-member listing on your right!"; 
+//$Text['msg_err_select_non_member'] = "In order to assign a new member to an HU you have to select one from the non-member listing on your right!";
 //$Text['msg_err_insufficient_stock'] = 'Insufficient stock for ';
 
 
-$Text['msg_edit_success'] = "Everything saved successfully!"; //changed!!!!! 
+$Text['msg_edit_success'] = "Everything saved successfully!"; //changed!!!!!
 //$Text['msg_edit_mysettings_success'] = "Your new settings have been saved successfully!";
-$Text['msg_pwd_changed_success'] = "Your password has been changed successfully!"; 
+$Text['msg_pwd_changed_success'] = "Your password has been changed successfully!";
 $Text['msg_confirm_del'] = "Are you sure you want to remove this member from this household?"; //changed!!!!!
 $Text['msg_enter_deposit_amount'] = "Deposit amount should only contain numbers and not be empty!";
 $Text['msg_please_set_ufid_deposit'] = "The HU ID is not set. You either have to choose a cart or select an alternative HU to make a deposit!";
@@ -478,7 +478,7 @@ $Text['msg_withdrawal_success'] = "The withdrawal has been successful!";
 $Text['msg_select_cart_first'] = "In order to add items for validating you have to select an HU/cart first!";
 //$Text['msg_err_move_date'] = "An error has occurred while moving the order to the new date. Try again. ";
 $Text['msg_no_active_products'] = "Sorry, but currently there are no products activated for ordering. Talk to the person in charge of provider(s)!";
-//$Text['msg_no_movements'] = "Sorry, no movements for given account and date!"; 
+//$Text['msg_no_movements'] = "Sorry, no movements for given account and date!";
 $Text['msg_delete_incident'] = "Are you sure you want to delete this incident?";
 //$Text['msg_err_selectFirstUF'] = "There is no household selected. Choose one first and then its purchases."; //ADDED JAN 2012
 
@@ -510,8 +510,8 @@ $Text['prdcat_drinks_alcohol'] 	= "Alcoholics";			//wine, beer, etc.
 $Text['prdcat_drinks_soft'] 	= "Soft drinks";			//juice, vegetable drinks
 $Text['prdcat_drinks_hot'] 		= "Coffee and tea";
 $Text['prdcat_driedstuff'] 		= "Snacks and dried fruit";
-$Text['prdcat_paper'] 			= "Cellulose and paper";		//hankerchiefs, toilet paper, kitchen paper, 
-$Text['prdcat_health'] 			= "Health";		//hankerchiefs, toilet paper, kitchen paper, 
+$Text['prdcat_paper'] 			= "Cellulose and paper";		//hankerchiefs, toilet paper, kitchen paper,
+$Text['prdcat_health'] 			= "Health";		//hankerchiefs, toilet paper, kitchen paper,
 $Text['prdcat_misc']			= "Everything else..." ;
 
 
@@ -628,7 +628,7 @@ $Text['msg_several_carts'] = "The selected household has more than one cart pend
 $Text['transfer_type'] = "Type";
 $Text['todays_carts'] = "Today's carts";
 $Text['week_carts'] = "Week carts";
-$Text['head_ti_torn'] = "Working shift overview"; 
+$Text['head_ti_torn'] = "Working shift overview";
 $Text['btn_validate'] = "Validate";
 $Text['desc_validate'] = "Validate past and present carts for households. Make money deposits.";
 $Text['nav_wiz_revise_order'] = "Revise";
@@ -639,7 +639,7 @@ $Text['desc_print_orders'] = "Print and download orders for next week. Orders ne
 $Text['nav_report_status'] = "Statistics";
 $Text['desc_stats'] = "Download a summery info of the current shift including today's incidents, negative ufs, total spending balance and products with negative stock";
 $Text['order_closed'] = "The order is closed for this provider.";
-$Text['head_ti_sales'] = "Sales listing"; 
+$Text['head_ti_sales'] = "Sales listing";
 $Text['not_yet_val'] = "not yet validated";
 $Text['val_by'] = "Validated by";
 $Text['purchase_details'] = "Purchase details of cart #";
@@ -670,7 +670,7 @@ $Text['active_changed_uf'] = "Active state changed for HU";
 $Text['msg_err_mentoruf'] = "The mentor household must be different from the HU itself!";
 $Text['msg_err_ufexists'] = "The HU name already exists. Please choose another one!";
 $Text['msg_err_form_init'] = "Seems like the form for creating a new member did not initialize correctly. Reload the page and then try again...   ";
-$Text['ti_mng_hu_members'] = "Manage households and their members"; 
+$Text['ti_mng_hu_members'] = "Manage households and their members";
 $Text['list_ufs'] = "List of households";
 $Text['search_members'] = "Member search";
 $Text['member_pl'] = "Members";
@@ -710,7 +710,7 @@ $Text['msg_con_disValitate_prvInv'] =
     <li>and the total amount will be put as invoice to the provider account.</li>
     </ul>";
 $Text['msg_err_disValitate'] = "Error when distribute and validate order #";
-$Text['msg_err_disVal_nonEmpyCatrs'] = 
+$Text['msg_err_disVal_nonEmpyCatrs'] =
     // Used to throw exception, multiple text lines causes a PHP warning "Header may not contain more than a single header..."
     "There validations pending for {date_for_shop}.<br>Is not possible \"Distribute and validate\" for the same date if there are outstanding validations!";
 $Text['btn_disValitate_ok'] = "Understood: distributes and validates!";
@@ -817,7 +817,7 @@ $Text['btn_later'] = "Later"; //más tarde... futuro
 $Text['pattern_intro'] = "Activate the selected day and products for the next ";
 $Text['pattern_scale'] = "month(s) every ";
 $Text['week'] = "week";
-$Text['second'] = "second week";  //2nd 
+$Text['second'] = "second week";  //2nd
 $Text['third'] = "third week";
 $Text['fourth'] = "fourth week";
 $Text['msg_pattern'] = "NOTE: This action will re-generate all dates and products from the selected day onwards!";
@@ -842,13 +842,13 @@ $Text['filter_todays'] = "Today's";
 $Text['bill'] = "Bill";
 $Text['member'] = "Member";
 $Text['cif_nif'] = "VAT Reg No"; //CIF/NIF
-$Text['bill_product_name'] = "Item"; //concepte en cat... 
-$Text['bill_total'] = "Total"; //Total factura 
+$Text['bill_product_name'] = "Item"; //concepte en cat...
+$Text['bill_total'] = "Total"; //Total factura
 $Text['phone_pl'] = "Phones";
-$Text['net_amount'] = "Net amount"; //importe netto 
+$Text['net_amount'] = "Net amount"; //importe netto
 $Text['gross_amount'] = "Gross amount"; //importe brutto
 
-$Text['cost_amount'] = "Cost"; //importe sin impuestos 
+$Text['cost_amount'] = "Cost"; //importe sin impuestos
 $Text['final_amount'] = "HU Final amount"; //importe final a las UF
 $Text['cost_amount_desc'] = "\"Cost\" = Amount according to provider price before taxes.";
 $Text['final_amount_desc'] = "\"HU Final amount\" = Amount with VAT and Rev. taxes.";
@@ -878,9 +878,10 @@ $Text['order_printOpt_default'] = "(depending on the provider)";
 $Text['add_pagebreak'] = "Click to ADD here a page break while printing";
 $Text['remove_pagebreak'] = "Click to REMOVE this page break";
 
-$Text['show_deactivated'] = "Show deactivated products"; 
-$Text['nav_report_sales'] = "Sales"; 
-$Text['nav_help'] = "Help"; 
+$Text['msg_err_no_provider'] = "You must select on provider from the droplist";
+$Text['show_deactivated'] = "Show deactivated products";
+$Text['nav_report_sales'] = "Sales";
+$Text['nav_help'] = "Help";
 $Text['withdraw_from'] = "Withdraw from ";  //account
 $Text['withdraw_to_bank'] = "Withdraw cash for bank";
 $Text['withdraw_uf'] = "Withdraw from HU account";
@@ -892,11 +893,12 @@ $Text['dff_qty'] = "Diff. quantity";
 $Text['dff_price'] = "Diff. price";
 $Text['ti_mgn_stock_mov'] = "Stock movements";
 $Text['stock_acc_loss_ever'] = "Overall accumulated loss";
-$Text['closed'] = "closed"; 
+$Text['closed'] = "closed";
 $Text['preorder_item'] = "This product forms part of an accumulative order";
 $Text['do_preorder'] = "De-/activate as preorder";
 $Text['do_deactivate_prod'] = "De-/activate entire product";
 $Text['msg_make_preorder_p'] = "You are about to set this product as *preorderable*. It will be part of an accumulative order which does not have any fixed order date (yet). People can order these items until a certain quantity has been reached and you close it. Are you sure you want to continue?";
+$Text['msg_delete_preorder_p'] = "Are you sure to delete this preorder?";
 $Text['btn_ok_go'] = "Ok, go ahead!";
 $Text['msg_pwd_emailed'] = "The new password has been sent to the user";
 $Text['msg_pwd_email_reset'] = 'Your password has been reset.';
@@ -919,12 +921,12 @@ $Text['filter_exact'] = "Exact dates";
 $Text['total_4date'] = "Total for date";
 $Text['total_4provider'] = "Overall total for provider";
 $Text['sel_sales_dates'] = "Show sales for provider for the given time period:";
-$Text['sel_sales_dates_ti'] = "Select time period"; 
+$Text['sel_sales_dates_ti'] = "Select time period";
 
 $Text['instant_repeat'] = "Instant repeat";
 $Text['msg_confirm_delordereditems'] = "There are ordered items for this product/date. Are you absolutely sure you want to deactivate it? This will delete the ordered items from people's order-carts!";
 $Text['msg_confirm_instantr'] = "Do you want to repeat this action for the rest of the active dates?";
-$Text['msg_err_delorerable'] = "Items have been ordered for this product and date. It cannot be deactivated!"; 
+$Text['msg_err_delorerable'] = "Items have been ordered for this product and date. It cannot be deactivated!";
 $Text['msg_pre2Order'] = "Convert this preorder to a regular order. This will assign an order date, i.e. when the expected items will arrive.";
 
 $Text['msg_err_modified_order'] = "Orderable products have been deactivated for the current date while you were ordering. Some products that you already had ordered are no longer available and will disappear from your cart after it has been reloaded.";
@@ -952,19 +954,19 @@ $Text['msg_err_order_unit'] = "Please select a order unit measure.";
 $Text['msg_err_shop_unit'] = "Please select a shop unit measure.";
 $Text['click_row_edit'] = "Click to edit!";
 $Text['click_to_list'] = "Click to list products!";
-$Text['head_ti_provider'] = "Manage provider & products"; 
+$Text['head_ti_provider'] = "Manage provider & products";
 $Text['edit'] = "Edit";
 $Text['ti_create_provider'] = "Create new provider";
 $Text['ti_add_product'] = "Add product";
 $Text['order_min'] = "Min. order amount";
-$Text['msg_confirm_del_product'] = "Are you sure you want to delete this product?"; 
+$Text['msg_confirm_del_product'] = "Are you sure you want to delete this product?";
 $Text['msg_err_del_product'] = "This product cannot be deleted since other database entries depend on it. Error thrown: ";
 $Text['msg_err_del_member'] = "This user cannot be deleted because other database entries reference it. <br/> Error thrown: ";
 $Text['msg_confirm_del_provider'] = "Are you sure you want to delete this provider?";
 $Text['msg_err_del_provider'] = "This provider cannot be deleted. Try deleting its products first!";
 $Text['price_net'] = "Price netto";
 
-$Text['custom_product_ref'] = "Custom ID"; 
+$Text['custom_product_ref'] = "Custom ID";
 $Text['btn_back_products'] = "Edit products";
 $Text['copy_column'] = "Copy column";
 $Text['paste_column'] = "Paste";
@@ -995,17 +997,17 @@ $Text['stock_info_product'] = "Note: consult all previous stock movements (adds,
 $Text['msg_success'] = "Completed successfully";
 $Text['msg_confirm'] = "Confirm";
 $Text['msg_warning'] = "Warning";
-$Text['msg_confirm_prov'] = "Are you sure you want to export all providers?"; 
-$Text['msg_err_upload'] = "An error occurred during uploading the file "; 
+$Text['msg_confirm_prov'] = "Are you sure you want to export all providers?";
+$Text['msg_err_upload'] = "An error occurred during uploading the file ";
 $Text['msg_import_matchcol'] = "Need to match up database entries with table rows! Please assign the required matching column "; //+ here then comes the name of the matching column, e.g. custom_product_ref
-$Text['msg_import_furthercol'] = "Apart from the required column which table columns do you want to import?"; 
-$Text['msg_import_done'] = '{$rows} rows have been imported.'; 
-$Text['msg_import_another'] = "Do you want to import another file?"; 
-$Text['btn_import_another'] = "Import another"; 
-$Text['btn_nothx'] = "No, thanks!"; 
+$Text['msg_import_furthercol'] = "Apart from the required column which table columns do you want to import?";
+$Text['msg_import_done'] = '{$rows} rows have been imported.';
+$Text['msg_import_another'] = "Do you want to import another file?";
+$Text['btn_import_another'] = "Import another";
+$Text['btn_nothx'] = "No, thanks!";
 $Text['direct_import_template'] = "Direct import template";
 $Text['import_allowed'] = "Allowed formats"; //as in allowed file formats
-$Text['import_file'] = "Import file"; 
+$Text['import_file'] = "Import file";
 $Text['public_url'] = "Public URL";
 $Text['btn_load_file'] = "Load file";
 $Text['msg_uploading'] = "Uploading file and generating preview, please wait...!";
@@ -1022,10 +1024,10 @@ $Text['import_createnew'] = "Create new entries";
 $Text['import_update'] = "Just update existing rows";
 $Text['btn_imp_direct'] = "Import directly";
 $Text['btn_import'] = "Import";
-$Text['btn_preview'] = "Preview first"; 
-$Text['sel_matchcol'] = "Match column..."; 
-$Text['ti_import_products'] = "Import or update products for "; 
-$Text['ti_import_providers'] = "Import providers"; 
+$Text['btn_preview'] = "Preview first";
+$Text['sel_matchcol'] = "Match column...";
+$Text['ti_import_products'] = "Import or update products for ";
+$Text['ti_import_providers'] = "Import providers";
 $Text['head_ti_import'] = "Import wizard";
 
 $Text['withdraw_desc_banc'] = "Withdraw money from account or make transfer for provider payment.";
@@ -1033,17 +1035,17 @@ $Text['deposit_desc_banc'] = "Register all incoming money to consum account.";
 $Text['deposit_banc'] = "Deposit to consume account";
 $Text['withdraw_banc'] = "Withdraw from consume account";
 $Text['deposit_sales_cash'] = "Deposit sales cash";
-$Text['ti_stock_report'] = "Stock report for "; 
-$Text['netto_stock'] = "Netto stock value"; 
-$Text['brutto_stock'] = "Brutto stock value"; 
-$Text['total_netto_stock'] = "Total netto stock value"; 
-$Text['total_brutto_stock'] = "Total brutto stock value"; 
+$Text['ti_stock_report'] = "Stock report for ";
+$Text['netto_stock'] = "Netto stock value";
+$Text['brutto_stock'] = "Brutto stock value";
+$Text['total_netto_stock'] = "Total netto stock value";
+$Text['total_brutto_stock'] = "Total brutto stock value";
 $Text['sales_total_pv'] = "Sales total for provider ";
-$Text['dates_breakdown'] = "Dates break down"; 
-$Text['price_brutto'] = "Price brutto"; 
+$Text['dates_breakdown'] = "Dates break down";
+$Text['price_brutto'] = "Price brutto";
 $Text['total_brutto'] = "Brutto total";
 $Text['total_netto'] = "Netto total";
-$Text['msg_err_oldPwdWrong'] = "Sorry, but you got your old password wrong. Please try again. "; 
+$Text['msg_err_oldPwdWrong'] = "Sorry, but you got your old password wrong. Please try again. ";
 $Text['msg_err_adminStuff'] = "Insufficient access privileges. Only Admin can do that!";
 $Text['set_c_balance'] = "Set balance for consume account";
 
@@ -1051,10 +1053,10 @@ $Text['msg_err_deactivate_prdrow'] = "This product cannot be deactivated because
 $Text['msg_err_deactivate_ir'] = "You cannot deactivate several dates for this product since certain dates contain already ordered items. Either turn off Instant Repeat or deactivate the ordered products/date individually.";
 $Text['msg_err_deactivate_product'] = "There are open orders for this product. Deactivating it will remove these items from the corresponding order carts. Deleting order items cannot be undone.";
 
-$Text['msg_activate_prod_ok'] = "The product has been activated successfully."; 
-$Text['msg_deactivate_prod_ok'] = "The product has been deactivated successfully."; 
-$Text['msg_activate_prov_ok'] = "The provider has been activated successfully."; 
-$Text['msg_deactivate_prov_ok'] = "The provider has been deactivated successfully."; 
+$Text['msg_activate_prod_ok'] = "The product has been activated successfully.";
+$Text['msg_deactivate_prod_ok'] = "The product has been deactivated successfully.";
+$Text['msg_activate_prov_ok'] = "The provider has been activated successfully.";
+$Text['msg_deactivate_prov_ok'] = "The provider has been deactivated successfully.";
 $Text['no_stock'] = "Out of stock!!";
 $Text['stock_mov_type'] = "Movement type";
 
@@ -1090,7 +1092,7 @@ $Text['os_reopen_order'] =
     to tell him that the order has been cancelled!";
 
 
-//$Text[''] = ""; 
+//$Text[''] = "";
 
 
 

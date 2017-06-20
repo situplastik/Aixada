@@ -870,6 +870,7 @@ $Text['order_printOpt_default'] = "(segons el proveïdor)";
 $Text['add_pagebreak'] = "Prem aquí per a afegir un salt de pàgina";
 $Text['remove_pagebreak'] = "Prem aquí per eliminar el salt de pàgina";
 
+$Text['msg_err_no_provider'] = "Has de seleccionar un proveïdor del desplegable";
 $Text['show_deactivated'] = "Mostra productes desactivats";
 $Text['nav_report_sales'] = "Compres";
 $Text['nav_help'] = "Ajuda";
@@ -889,6 +890,7 @@ $Text['preorder_item'] = "Aquest producte forma part d'una comanda acumulativa";
 $Text['do_preorder'] = "Des-/activar com comanda acumulativa";
 $Text['do_deactivate_prod'] = "Activar/desactivar producte";
 $Text['msg_make_preorder_p'] = "Això es una comanda acumulativa, per tant encara no te data d'entrega";
+$Text['msg_delete_preorder_p'] = "Estàs segur que vols esborrar la comanda acumulativa?";
 $Text['btn_ok_go'] = "Ok, endavant!";
 $Text['msg_pwd_emailed'] = "La nova contrasenya s'ha enviat a l'usuari";
 $Text['msg_pwd_email_reset'] = "La teva contrasenya s'ha restablert.";
