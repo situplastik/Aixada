@@ -692,8 +692,21 @@
 					msg		: "<?=$Text['msg_make_preorder_p'];?>",
 					buttons: {
 						"<?=$Text['btn_ok_go'];?>":function(){
-							toggleEntireRow('1234-01-23');
-							$(this).dialog("close");
+							var that = this;
+							var orderDate = '1234-01-23';
+							var closingDate = '9999-01-01';
+							var urlStr = 'php/ctrl/ActivateProducts.php?oper=modifyOrderClosingDate&provider_id='+providerId+'&order_date='+orderDate+'&closing_date='+closingDate;
+							$.ajax({
+								type: "POST",
+								url: urlStr,
+								beforeSend : function (){
+									toggleEntireRow(orderDate);
+								},
+								success: function(txt){
+									$(that).dialog("close");
+									$('#dot tbody').xml2html('reload');
+								}
+							}); //end ajax
 						},
 						"<?=$Text['btn_cancel'];?>" : function(){
 							$( this ).dialog( "close" );
