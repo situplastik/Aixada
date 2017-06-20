@@ -28,7 +28,7 @@
 	//decide what to do in which section
 	var what = $.getUrlVar('what');
 
-	//allow pruchase of stock_actual < 0 items? 
+	//allow pruchase of stock_actual < 0 items?
 	var preventOutofStock = <?php echo configuration_vars::get_instance()->prevent_out_of_stock_purchase;?>
 
 
@@ -422,7 +422,7 @@
 		var stockActual = $(row).attr("stock");
 		var orderType	= $(row).attr("ordertype");
 
-		//this is a stock product without any stock left: can't be bought. 
+		//this is a stock product without any stock left: can't be bought.
 		if (orderType == 3) { // order nones
 			$('input', row).hide();
 			$('td.item_notes', row).show();
@@ -455,6 +455,53 @@
 	$('.loadSpinner').attr('src', "img/ajax-loader-<?=$default_theme;?>.gif");
 	$('#leftCol .loadSpinner').hide();
 
+	/* push preorder providers to select and create change function */
+	var lengthofPreorderProducts = 0;
+	$("#product_list_preorder").bind("DOMSubtreeModified", function(ev){
+		var newLength = $(ev.target).find('tr').length;
+		if(lengthofPreorderProducts != newLength){
+			lengthofPreorderProducts = newLength;
+
+			//var providers = $('#product_list_preorder tr td.item_provider_name').html();
+
+			var providers = [];
+			$.each($('#product_list_preorder tr td.item_provider_id'), function(i,v){
+			   if ($.inArray(v.innerText, providers) == -1) providers[v.innerText] = ({value:v.innerText, label: $(v).attr('provider-name')});
+			});
+
+			$('#preorder-providers-select option').remove();
+			$('#preorder-providers-select').append($("<option></option>")
+				.attr("value","-1")
+				.attr("selected","selected")
+				.text("<?php echo $Text['sel_provider']; ?>"));
+			$.each(providers, function(key, provider) {
+				if(provider != undefined){
+					$('#preorder-providers-select')
+			     		.append($("<option></option>")
+							.attr("value",encodeURIComponent(provider.value))
+							.text(provider.label));
+				}
+			});
+		}
+	});
+	$("#preorder-providers-select").change(function(){
+		$('#aixada_cart_list_preorder tbody').removeClass('hidden');
+		$('#product_list_preorder tbody').removeClass('hidden');
+		$('#aixada_cart_list_preorder tbody tr').addClass('hidden');
+
+		$('#tabsx-2>.provider_name').remove();
+		$('#tabsx-2').prepend('<h3 class="provider_name">'+$("option:selected", this).html()+'</h3>');
+
+		var idProvider = $("option:selected", this).val();
+		$.each($('#product_list_preorder tbody tr'), function(key, line) {
+			var isThere = $(line).find('td.item_provider_id').html() == idProvider;
+			$(line).css('display', isThere ? '' : 'none');
+			if(isThere){
+				$('#aixada_cart_list_preorder').find('tr#'+$(line)[0].id).removeClass('hidden')
+			}
+		});
+
+	}) //end select change
 	});  //close document ready
 </script>
 
@@ -622,7 +669,8 @@
 
 			</div>
 			<div id="tabs-4">
-
+				<select id="preorder-providers-select" class="longSelect">
+				</select>
 				<table id="product_list_preorder" class="product_list" >
 						<thead>
 							<tr>
@@ -635,11 +683,12 @@
 								<th><?php echo $Text['price'];?></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="hidden">
 							<tr id="{id}" preorder="true">
 								<td class="item_it">{id}</td>
 								<td class="item_info"><p class="ui-corner-all iconContainer textAlignCenter rowProductInfo" stock="{stock_actual}" iva_percent="{iva_percent}" rev_tax_percent="{rev_tax_percent}" description="{description}"><span class="ui-icon ui-icon-info"></span></p></td>
 								<td class="item_name">{name}</td>
+								<td class="item_provider_id hidden" provider-name={provider_name}>{provider_id}</td>
 								<td class="item_provider_name">{provider_name}</td>
 								<td class="item_notes hidden" colspan="5">
 									{name} | {provider_name}<br>
