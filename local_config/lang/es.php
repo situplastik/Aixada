@@ -55,7 +55,7 @@ $Text['sel_none'] = "Ninguno";
  */
 $Text['by_provider'] = "Por proveedor";
 $Text['by_category'] = "Por categoría de productos";
-$Text['special_offer'] = "Acumulativo";
+$Text['special_offer'] = "Puntual";
 $Text['search_add'] = "Buscar y añadir otro artículo";
 $Text['validate'] = "Validar";
 
@@ -551,8 +551,8 @@ $Text['description_url'] = 'URL de descripción';
  * added after 14.5
  */
 $Text['msg_err_validate_self'] = '¡No puedes validarte a ti mismo!';
-$Text['msg_err_preorder'] = 'El pedido acumulativo tiene que ser con una fecha futura.';
-$Text['msg_preorder_success'] = 'El pedido acumulativo se ha activado correctamente para la fecha:';
+$Text['msg_err_preorder'] = 'El pedido puntual tiene que ser con una fecha futura.';
+$Text['msg_preorder_success'] = 'El pedido puntual se ha activado correctamente para la fecha:';
 $Text['msg_can_be_ordered'] =  'Se puede hacer un pedido en este día';
 $Text['msg_has_ordered_items'] = 'Existen pedidos para este día; no se pueden borrar, solamente mover';
 $Text['msg_today'] = 'Hoy';
@@ -892,13 +892,13 @@ $Text['segon_torn'] = "Segundo Turno";
 $Text['dff_qty'] = "Dif. cantidad";
 $Text['dff_price'] = "Dif. precio";
 $Text['ti_mgn_stock_mov'] = "Movimientos de stock";
-$Text['stock_acc_loss_ever'] = "Perdida acumulada";
+$Text['stock_acc_loss_ever'] = "Perdido puntual";
 $Text['closed'] = "cerrado";
-$Text['preorder_item'] = "Este producto forma parte de un pedido acumulativo";
-$Text['do_preorder'] = "De-/activar cómo pedido acumulativo";
+$Text['preorder_item'] = "Este producto forma parte de un pedido puntual";
+$Text['do_preorder'] = "De-/activar cómo pedido puntual";
 $Text['do_deactivate_prod'] = "Activar/desactivar producto";
-$Text['msg_make_preorder_p'] = "Éste pedido es acumulativo, por lo tanto todavía no tiene fecha de entrega";
-$Text['msg_delete_preorder_p'] = "¿Estás seguro que quieres borrar el pedido acumulativo?";
+$Text['msg_make_preorder_p'] = "Éste pedido es puntual, por lo tanto todavía no tiene fecha de entrega";
+$Text['msg_delete_preorder_p'] = "¿Estás seguro que quieres borrar el pedido puntual?";
 $Text['btn_ok_go'] = "OK, adelante!";
 $Text['msg_pwd_emailed'] = "La nueva contraseña se ha enviado al usuario";
 $Text['msg_pwd_email_reset'] = 'Tu contraseña se ha restablecido.';
@@ -927,7 +927,7 @@ $Text['instant_repeat'] = "Repetir directamente";
 $Text['msg_confirm_delordereditems'] = "Este producto ya se ha pedido este día. Estás seguro de desactivarlo? Esto  borrará el pedido de las cestas. ";
 $Text['msg_confirm_instantr'] = "Quieres repetir la misma acción para el resto de las fechas activas? ";
 $Text['msg_err_delorerable'] = "Existe un pedido para este producto y fecha. No se puede borrar.";
-$Text['msg_pre2Order'] = "Convierte el pedido acumulativo en un pedido regular. Se crea una fecha de entrega. ";
+$Text['msg_pre2Order'] = "Convierte el pedido puntual en un pedido regular. Se crea una fecha de entrega. ";
 
 $Text['msg_err_modified_order'] = "Alguien ha modificado los productos a pedir para fecha actual. Algunos productos que habías pedido ya no están disponibles y desaparecerán de tu carrito una vez recargado.";
 $Text['msg_err_modif_order_closed'] = "Se ha intentado modificar algún pedido que ya está cerrado.";

@@ -5,7 +5,7 @@
 			title : {
 				shop 	: "My Cart",
 				order	: "My Order",
-				preorder : "Pre-ordered items"
+				preorder : "Punctual"
 			},
 			validate : "Validate",
 			submit	: "Submit",
@@ -33,10 +33,10 @@
 				saveSuccess : "Your items have been successfully saved!",
 				errInput	: "The quantity has to be numeric!",
 				orderClosed : "This item belongs to an order that has already been closed. No further changes are possible!"
-				
+
 			}
-		
+
 		}
-		
+
 	});
 })( jQuery );

@@ -5,7 +5,7 @@
 			title : {
 				shop 	: "Mi cesta",
 				order	: "Mi pedido",
-				preorder : "Acumulativo"
+				preorder : "Puntual"
 			},
 			validate : "Validar",
 			submit	: "Enviar",
@@ -18,7 +18,7 @@
 			subtotal : "Subtotal",
 			ivaTax : "Impuesto Valor Añadido",
 			ivaTaxAbbrev : "IVA",
-			ivaTaxInclAbbrev : "incl. IVA",			
+			ivaTaxInclAbbrev : "incl. IVA",
 			revTax	: "Impuesto revolucionario",
 			revTaxAbbrev: "ImpRev",
 			revTaxInclAbbrev: "incl. ImpRev",
@@ -34,10 +34,10 @@
 				errInput	: "La cantidad tiene que ser numérica!",
 				orderClosed : "El producto pertenece a un pedido que ya se ha cerrado. No se puede modificar."
 
-				
+
 			}
-		
+
 		}
-		
+
 	});
 })( jQuery );
