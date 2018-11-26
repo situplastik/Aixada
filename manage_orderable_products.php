@@ -670,52 +670,30 @@
 		}
 
 		/**
-		 *	check if provider can be made preorderable and switch state between preorder & normal
+		 *	changes the orderable status of ALL products for a given date. triggered
+		 *  from checkOrderStatus. if the product was not orderable for this date it will
+		 *  become orderable and vice versa.
 		 */
-		function preorderProvider(providerId){
-			var ispreorder = $('table.table_datesOrderableProducts tbody tr').attr('ispreorder');
-			if (ispreorder == "1"){
-				$.showMsg({
-					msg		: "<?=$Text['msg_delete_preorder_p'];?>",
-					buttons: {
-						"<?=$Text['btn_delete'];?>":function(){
-							toggleEntireRow('1234-01-23');
-							$(this).dialog("close");
-						},
-						"<?=$Text['btn_cancel'];?>" : function(){
-							$( this ).dialog( "close" );
-						}
-					},
-					type: 'confirm'});
-			} else {
-				$.showMsg({
-					msg		: "<?=$Text['msg_make_preorder_p'];?>",
-					buttons: {
-						"<?=$Text['btn_ok_go'];?>":function(){
-							var that = this;
-							var orderDate = '1234-01-23';
-							var closingDate = '9999-01-01';
-							var urlStr = 'php/ctrl/ActivateProducts.php?oper=modifyOrderClosingDate&provider_id='+providerId+'&order_date='+orderDate+'&closing_date='+closingDate;
-							$.ajax({
-								type: "POST",
-								url: urlStr,
-								beforeSend : function (){
-									toggleEntireRow(orderDate);
-								},
-								success: function(txt){
-									$(that).dialog("close");
-									$('#dot tbody').xml2html('reload');
-								}
-							}); //end ajax
-						},
-						"<?=$Text['btn_cancel'];?>" : function(){
-							$( this ).dialog( "close" );
-						}
-					},
-					type: 'confirm'});
-			}
-		}
+		function selectMultiProduct()
+		{	var i=1;
+			$( ".table_datesOrderableProducts tr" ).each(function() {
+				if($(this).attr('isactive')==1)
+				{
+					$('.loadSpinner').show();
+					$.showMsg({
+						msg:"<?=$Text['wait_work']; ?>",
+						type: 'info'});
+					var productId='';
+					productId = $( this ).attr('id');
+					$('#rowActionItems').attr('currentrowid',productId);
+					toggleOrderableProduct('reloadTable', productId, '1234-01-23');
+					i++;
+					/*console.log(productId,i);
+					if(i==11)return false;*/
+				}
+			});
 
+		}
 
 		/**
 		 *	check if product can be made preorderable
@@ -1142,7 +1120,7 @@
 									msg		: "<?=$Text['msg_err_no_provider'];?>",
 									type: 'error'});
 							}else{
-								preorderProvider(providerId);
+								selectMultiProduct();
 							}
 							break;
 
