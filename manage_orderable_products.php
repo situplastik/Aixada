@@ -14,7 +14,6 @@
 	<?php echo aixada_js_src(); ?>
  	<script type="text/javascript" src="js/jqueryui/i18n/jquery.ui.datepicker-<?=$language;?>.js" ></script>
 
-
 	<script type="text/javascript">
 	$(function(){
 		$.ajaxSetup({ cache: false });
@@ -184,7 +183,7 @@
 								closingIcon		 = (orderId > 0)? "ui-icon-mail-closed" : closingIcon;
 								var closingTitle = (days2Closing > 0)? "<?=$Text['order_closes'];?> " + closingDate + ". \n " +days2Closing + " <?=$Text['left_ordering'];?>": "<?=$Text['ostat_closed'];?>";
 								closingTitle = (orderId > 0)? "<?=$Text['ostat_desc_fin_send'];?>" + orderId: closingTitle;
-								var hasItems = (hasItems > 0) ? "#"+hasItems: "-";
+								hasItems = (hasItems > 0) ? "#"+hasItems : "-";
 
 								//var selector = ".Date-"+date + ".Prod-"+id;
 								var selector = "#"+date+"_"+id;
@@ -244,11 +243,11 @@
 		//make the product name interactive for row actions menu
 		$('.rowActions')
 			.live('mouseenter', function(e){
-				$(this).addClass('ui-state-hover');
+				$(this).addClass('ax_state_hover');
 
 			})
 			.live('mouseleave', function(e){
-				$(this).removeClass('ui-state-hover');
+				$(this).removeClass('ax_state_hover');
 			})
 			.live('click',function(e){
 
@@ -310,12 +309,12 @@
 			.live('mouseenter', function(e){
 				$( "#colActionIcons" ).hide();
 				var colDate = $(this).attr('colDate');
-				$(".Date-"+colDate).addClass('ui-state-hover');
+				$(".Date-"+colDate).addClass('ax_state_hover');
 
 			})
 			.live('mouseleave', function(e){
 				var colDate = $(this).attr('colDate');
-				$(".Date-"+colDate).removeClass('ui-state-hover');
+				$(".Date-"+colDate).removeClass('ax_state_hover');
 				e.stopPropagation();
 			})
 			.live('click', function(e){
@@ -669,31 +668,79 @@
 
 		}
 
-		/**
-		 *	changes the orderable status of ALL products for a given date. triggered
-		 *  from checkOrderStatus. if the product was not orderable for this date it will
-		 *  become orderable and vice versa.
-		 */
-		function selectMultiProduct()
-		{	var i=1;
-			$( ".table_datesOrderableProducts tr" ).each(function() {
-				if($(this).attr('isactive')==1)
-				{
-					$('.loadSpinner').show();
-					$.showMsg({
-						msg:"<?=$Text['wait_work']; ?>",
-						type: 'info'});
-					var productId='';
-					productId = $( this ).attr('id');
-					$('#rowActionItems').attr('currentrowid',productId);
-					toggleOrderableProduct('reloadTable', productId, '1234-01-23');
-					i++;
-					/*console.log(productId,i);
-					if(i==11)return false;*/
-				}
-			});
+        /**
+         *	check if provider can be made preorderable and switch state between preorder & normal
+         */
+        function selectMultiProduct() {
+            var _existPreorder = false;
+            $('table.table_datesOrderableProducts tbody tr').each(function() {
+                    if ($(this).attr('ispreorder') == 1) {
+                        _existPreorder = true;
+                        return false;
+                    }
+            });
+            var _promises = [],
+                _toggleFn = function() {
+                    if ($(this).attr('isactive')==1) {
+                        productId = $(this).attr('id');
+                        $('#rowActionItems').attr('currentrowid', productId);
+                        _promises.push(
+                            toggleOrderableProduct('reloadTable', productId, '1234-01-23', false)
+                        );
+                    }
+                },
+                _refresh = function() {
+                    $('#dot tbody').xml2html('reload', {
+                        comlpete: function() {
+                            $('.loadSpinner').hide();
+                        }
+                    });
+                };
 
-		}
+            if (_existPreorder){
+                $.showMsg({
+                    msg		: "<?=$Text['msg_delete_preorder_p'];?>",
+                    buttons: {
+                        "<?=$Text['btn_delete'];?>": function() {
+                            $(this).dialog("close");
+                            $('.loadSpinner').show();
+                            _promises = [];
+                            $('table.table_datesOrderableProducts tbody tr[ispreorder="1"]')
+                                .each(_toggleFn);
+                            if (_promises.length === 0) {
+                                _promises.push(null);
+                            }
+                            $.when.apply($, _promises).then(_refresh, _refresh);
+                        },
+                        "<?=$Text['btn_cancel'];?>" : function(){
+                            $(this).dialog("close");
+                        }
+                    },
+                    type: 'confirm'
+                });
+            } else {
+                $.showMsg({
+                    msg		: "<?=$Text['msg_make_preorder_p'];?>",
+                    buttons: {
+                        "<?=$Text['btn_ok_go'];?>": function() {
+                            $(this).dialog("close");
+                            $('.loadSpinner').show();
+                            _promises = [];
+                            $('table.table_datesOrderableProducts tbody tr')
+                                .each(_toggleFn);
+                            if (_promises.length === 0) {
+                                _promises.push(null);
+                            }
+                            $.when.apply($, _promises).then(_refresh, _refresh);
+                        },
+                        "<?=$Text['btn_cancel'];?>" : function(){
+                            $(this).dialog("close");
+                        }
+                    },
+                    type: 'confirm'
+                });
+            }
+        }
 
 		/**
 		 *	check if product can be made preorderable
@@ -806,14 +853,19 @@
 		 *  from checkOrderStatus. if the product was not orderable for this date it will
 		 *  become orderable and vice versa.
 		 */
-		function toggleOrderableProduct(id, productId, orderDate){
-				$.ajax({
+		function toggleOrderableProduct(id, productId, orderDate, reload){
+				var _reload = (reload === false) ? false : true;
+				return $.ajaxQueue({ // Return to use promise returned by $.ajax
 					type: "POST",
 					url:  "php/ctrl/ActivateProducts.php?oper=toggleOrderableProduct&product_id="+productId+"&date="+orderDate+"&instantRepeat="+gInstantRepeat,
 					beforeSend : function (){
-						$('.loadSpinner').show();
+
+						if (_reload) {
+							$('.loadSpinner').show();
+						}
 					},
 					success: function(txt){
+						if (_reload === false) { return; }
 						if (id == 'reloadTable'){ //we change from/to preorder and have to rebuild the entire row
 							$('#dot tbody').xml2html('reload');
 						} else { //otherwise just change the look of the individual cell
@@ -833,7 +885,9 @@
 
 					},
 					complete : function(){
-						$('.loadSpinner').hide();
+						if (_reload) {
+							$('.loadSpinner').hide();
+						}
 					}
 				});
 
@@ -1111,7 +1165,17 @@
 								$(item).children('span').addClass('ui-icon ui-icon-check');
 								gInstantRepeat = 1;
 							}
+							break;
 
+						case 'provider-preorder':
+							var providerId = getProviderId();
+							if(!providerId){
+								$.showMsg({
+									msg		: "<?=$Text['msg_err_no_provider'];?>",
+									type: 'error'});
+							}else{
+								selectMultiProduct();
+							}
 							break;
 						case 'provider-preorder':
 							var providerId = getProviderId();
@@ -1229,14 +1293,14 @@
 		   		<div class="textAlignRight"><button	id="tblOptions"><?php echo $Text['view_opt']; ?></button></div>
 				<div id="tblOptionsItems" class="hidden">
 					<ul>
-						<li><a href="javascript:void(null)" id="provider-preorder"><?php echo $Text['do_preorder']; ?></a></li>
-						<li><a href="javascript:void(null)" id="showInactiveProducts" isChecked="false"><span class="floatLeft"></span>&nbsp;&nbsp;<?php echo $Text['show_deactivated']; ?></a></li>
-						<li><a href="javascript:void(null)">&nbsp;&nbsp;<?php echo $Text['days_display'];?></a>
+						<li><a href="javascript:void(null)" id="provider-preorder">-&nbsp;<?php echo $Text['do_preorder']; ?></a></li>
+						<li><a href="javascript:void(null)" id="showInactiveProducts" isChecked="false"><span class="floatLeft"></span>-&nbsp;<?php echo $Text['show_deactivated']; ?></a></li>
+						<li><a href="javascript:void(null)">-&nbsp;<?php echo $Text['days_display'];?></a>
 							<ul>
 								<li><a href="javascript:void(null)" id="plus7"><?php echo $Text['plus_seven']; ?></a></li>
 								<li><a href="javascript:void(null)" id="minus7"><?php echo $Text['minus_seven']; ?></a></li></ul>
 						</li>
-						<li><a href="javascript:void(null)" id="instantRepeat"><span class="floatLeft"></span>&nbsp;&nbsp;<?php echo $Text['instant_repeat']; ?></a></li>
+						<li><a href="javascript:void(null)" id="instantRepeat"><span class="floatLeft"></span>-&nbsp;<?php echo $Text['instant_repeat']; ?></a></li>
 
 					</ul>
 				</div>

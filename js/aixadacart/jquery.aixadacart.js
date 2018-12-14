@@ -227,7 +227,7 @@
 					//deactivates items whose provider/order has been already closed
 					var deaTr = (itemObj.time_left < 0)? 'dim60':'';
 					var deaTd = (itemObj.time_left < 0)? 'ui-state-error':'';
-					var deaIn = (itemObj.time_left < 0)? 'disabled':'';
+					var deaIn = (itemObj.time_left < 0)? 'data-disabled="disabled"':'';
 
 					//add it as row
 					var str = '<tr id="'+itemObj.id+'" class="'+deaTr+'" >';
@@ -251,7 +251,7 @@
                         str += '<td class="item_text" colspan="5">' +
                                 '<span class="item_name '+deaTd+'">'+itemObj.name+'</span> | ' +
                                 '<span class="item_provider_name '+deaTd+'">'+itemObj.provider_name+'</span><br>' +
-                                '<textarea name="notes[]" class="ui-widget-content ui-corner-all textareaLarge inputTxtMax" id="cart_notes_'+itemObj.id+'">'+itemObj.notes+'</textarea>' +
+                                '<textarea name="notes[]" class="ui-widget-content ui-corner-all textareaLarge inputTxtMax" '+deaIn+' id="cart_notes_'+itemObj.id+'">'+itemObj.notes+'</textarea>' +
                             '</td>';
                         str += '<td class="item_quantity '+deaTd+' hidden">' +
                             '<input name="quantity[]" value="'+itemObj.quantity+'" id="cart_quantity_'+itemObj.id+'" size="4" class="ui-corner-all" />';
@@ -332,7 +332,7 @@
 
                     $("#cart_notes_"+itemObj.id, $this).bind(
                         "focus", function(e){
-                            if($(this).parent().hasClass('ui-state-error')){
+                            if($(this).attr("data-disabled") === "disabled"){
                                 $("#cart_dialog")
                                     .html($.aixadacart.msg.orderClosed)
                                     .dialog('option','title','Warning')
@@ -423,6 +423,15 @@
       */
 	 loadCart : function (options){
 
+    	 var orderDate = options.date,
+    	     _isPreorder = (orderDate === '1234-01-23');
+    	 if (_isPreorder) {
+    	     $('#cartOrderTitle').text($.aixadacart.title.order + ': ' + $.aixadacart.title.preorder);
+    	 } else if (orderDate) {
+    	     $('#cartOrderTitle').text($.aixadacart.title.order + ': ' + orderDate);
+    	 } else {
+    	     $('#cartOrderTitle').text($.aixadacart.title.order);
+    	 }
     	 return this.each(function(){
 
     		 var $this = $(this);
@@ -454,6 +463,8 @@
 			  			if (lastCartId > 0 && lastCartId != objItem.cart_id){
 			  				updateCartTips.call($this,'error','cart_id mismatch: ' + lastCartId + " and " + objItem.cart_id);
 			  				return false;
+			  			} else if (_isPreorder !== objItem.isPreorder) {
+			  				return;
 			  			}
 			  			lastCartId = objItem.cart_id;
 			  			ts_last_saved = objItem.ts_last_saved;
@@ -571,7 +582,7 @@
 			  var row = options.row;
 			  objItem = {
 					id 					: $(row).find('id').text(),
-					isPreorder			: $(row).find('preorder').text(),
+					isPreorder			: ($(row).find('preorder').text() == "true"),
 					provider_name 		: $(row).find('provider_name').text(),
 					name 				: $(row).find('name').text(),
 					orderable_type_id	: $(row).find('orderable_type_id').text(),
@@ -590,7 +601,7 @@
 		  } else if (options.type == "table"){
 			  var row = options.row;
 			  var id =  $(row).attr("id");
-			  quantity = $("#cart_quantity_"+id).val();
+			  var quantity = $("#cart_quantity_"+id).val();
 			  if (quantity.replace(/ /g, '') === '') {
 			    quantity = '0';
 			  }
@@ -790,27 +801,17 @@
 			str += '<input type="hidden" name="date" id="cart_date" value="0" />';
 			str += '<input type="hidden" name="cart_id" id="global_cart_id" value="" />';
 			str += '<input type="hidden" name="ts_last_saved" id="global_ts_last_saved" value="" />';
-			str += '<div id="cart_tabs">';
-			str += '<ul>';
-			str += '<li><a href="#tabsx-1" style="font-size:1.6em;">'+$.aixadacart.title.order+'</a></li>';
-			str += '<li><a href="#tabsx-2" style="padding:1.20em;">'+$.aixadacart.title.preorder+'</a></li>';
-			str += '</ul>';
-			str += '<div id="tabsx-1">';
-			str += '<span class="cartLoadAnim cart_floatRight cart_animOrder cart_hidden"><img class="loadSpinner" src="img/ajax-loader.gif"/></span>';
-			str += '	<table id="aixada_cart_list" class="cart_product_list">';
+			str += '<div class="cart_container ui-widget-content ui-corner-all">'
+				+ '<h2 class="ui-widget-header ui-corner-all"><span id="cartOrderTitle">'+$.aixadacart.title.order+'</span>'
+				+ '<span class="cartLoadAnim cart_floatRight cart_animOrder cart_hidden"><img class="loadSpinner" src="img/ajax-loader.gif"/></span>'
+				+ '</h2>';
+			str += '<table id="aixada_cart_list" class="cart_product_list">';
 			str += tbl_head;
 			str += '	<tbody></tbody>';
 			str += tbl_foot;
 			str += '</table>';
-			//str += '<p id="cartMsg"></p>';
 			str += '</div>';
-			str += '<div id="tabsx-2">';
-			str += '		<table id="aixada_cart_list_preorder" class="cart_product_list">';
-			str += tbl_head;
-			str += '		<tbody class="hidden"></tbody>';
-			str += '</table>';
-			//str += '<p id="cartMsg"></p>';
-			str += '</div></div></form></div><br/><br/><br/>';
+			str += '</form></div><br/><br/><br/>';
 
 		//default is standalone
 		} else {

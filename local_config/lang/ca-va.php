@@ -887,10 +887,12 @@ $Text['ti_mgn_stock_mov'] = "Moviments stock";
 $Text['stock_acc_loss_ever'] = "Pèrdua acumulada";
 $Text['closed'] = "tancat";
 $Text['preorder_item'] = "Aquest producte forma part d'una comanda puntual";
-$Text['do_preorder'] = "Des-/activar com comanda puntual";
+$Text['do_preorder'] = "Activar/desactivar com comanda puntual";
 $Text['do_deactivate_prod'] = "Activar/desactivar producte";
 $Text['msg_make_preorder_p'] = "Això es una comanda puntual, per tant encara no te data d'entrega";
 $Text['msg_delete_preorder_p'] = "Estàs segur que vols esborrar la comanda puntual?";
+$Text['msg_err_no_provider'] = "Has de seleccionar un proveïdor del desplegable";
+
 $Text['btn_ok_go'] = "Ok, endavant!";
 $Text['msg_pwd_emailed'] = "La nova contrasenya s'ha enviat a l'usuari";
 $Text['msg_pwd_email_reset'] = "La teva contrasenya s'ha restablert.";

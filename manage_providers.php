@@ -393,8 +393,6 @@
 
 				//construct the responsible uf select
 				populateSelect(gProviderSelects,'#tbl_provider_new');
-                setSelectValue('#tbl_provider_edit .sOrderSendFormat', 'default');
-                setSelectValue('#tbl_provider_edit .sOrderSendPrices', 'default');
 
 				//new providers have no id
 				$('#tbl_provider_new input[name=id]').remove();
@@ -413,8 +411,8 @@
 			//reset provider id. 
 			$('.setProviderId', frm).html('&nbsp;');
 			$('.setProviderName').text('');
-			
-			
+            setSelectValue('#tbl_provider_new .sOrderSendFormat', 'default');
+            setSelectValue('#tbl_provider_new .sOrderSendPrices', 'default');
 		}
 
 
@@ -1234,34 +1232,38 @@
 		
 
 		
-		function loadSelectHTML(urlStr, destination){
-			$.post(urlStr, function(html){
-				var selValue = $(destination).empty().append(html).prev().val(); 
-				//new provider/product have no value, so we take the first option
-				//this needs to be set manually, otherwise with a new form, no values get send
-				if (selValue == ''){
-					var selValue = $(destination).children('select:first').val();				
-					$(destination).prev().attr('value',selValue);
-				} else {
-					$(destination).children('select').val(selValue).attr('selected','selected');
-				}						
-				
-				if (destination.indexOf('sOrderableTypeId') > 0){// && !$('#btn_edit_stocks').is(':data(autocomplete)') ){
-					 manageEditStockBtn();
-				}
+		function loadSelectHTML(urlStr, destination) {
+			$.ajaxQueue({
+                type: "POST",
+                url: urlStr,
+                success:function(html) {
+                    var selValue = $(destination).empty().append(html).prev().val(); 
+                    //new provider/product have no value, so we take the first option
+                    //this needs to be set manually, otherwise with a new form, no values get send
+                    if (selValue == ''){
+                        var selValue = $(destination).children('select:first').val();
+                        $(destination).prev().attr('value',selValue);
+                    } else {
+                        $(destination).children('select').val(selValue).attr('selected','selected');
+                    }
+                    
+                    if (destination.indexOf('sOrderableTypeId') > 0){// && !$('#btn_edit_stocks').is(':data(autocomplete)') ){
+                         manageEditStockBtn();
+                    }
 
-				if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 1){
-					$('.priceElements').show();
-					$('.stockElements').show();
-				} else if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 2) {
-					$('.priceElements').show();
-					$('.stockElements').hide();
-				} else if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 3) {
-					$('.stockElements').hide();
-					$('.priceElements').hide();
-				}
-				
-			})	
+                    if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 1){
+                        $('.priceElements').show();
+                        $('.stockElements').show();
+                    } else if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 2) {
+                        $('.priceElements').show();
+                        $('.stockElements').hide();
+                    } else if (destination.indexOf('sOrderableTypeId') > 0 && selValue == 3) {
+                        $('.stockElements').hide();
+                        $('.priceElements').hide();
+                    }
+                    
+                }
+            });
 		}
 
         function setSelectValue(destination, value) {
@@ -1272,7 +1274,7 @@
         function refreshSelectValue(destination) {
             var selValue = $(destination).prev().val();
             if (selValue == ''){
-                var selValue = $(destination).children('select:first').val();
+                selValue = $(destination).children('select:first').val();
                 $(destination).prev().attr('value',selValue);
             } else {
                 $(destination).children('select').val(selValue).attr('selected','selected');
@@ -1362,7 +1364,7 @@
 			var rev = new Number(revp);
 			var iva = new Number(ivap);
 			
-			var price = price * (1 + iva/100) * (1 + rev/100); 
+			price = price * (1 + iva/100) * (1 + rev/100); 
 
 			$('.unit_price_brutto', frm).text(price.toFixed(2));
 		}
